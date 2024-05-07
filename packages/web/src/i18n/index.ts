@@ -19,8 +19,8 @@ export const ANTD_LANG_MAP = {
 };
 const backend = new Backend({
   // path where resources get loaded from
-  loadPath: './locales/{{lng}}/{{ns}}.json',
-  addPath: './locales/{{lng}}/{{ns}}.json'
+  loadPath: '/fake-world/locales/{{lng}}/{{ns}}.json',
+  addPath: '/fake-world/locales/{{lng}}/{{ns}}.json'
 });
 
 i18n
