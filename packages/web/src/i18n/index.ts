@@ -17,9 +17,13 @@ export const ANTD_LANG_MAP = {
   'zh-TW': zhTW,
   'en-US': enUS,
 };
+const backend = new Backend({
+  // path where resources get loaded from
+  loadPath: '/fake-world/locales/{{lng}}/{{ns}}.json'
+});
 
 i18n
-  .use(Backend)
+  .use(backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
