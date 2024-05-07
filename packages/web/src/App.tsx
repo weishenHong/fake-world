@@ -9,7 +9,7 @@ import { ANTD_LANG_MAP } from './i18n';
 import { useState } from 'react';
 
 const App = () => {
-  const inShareMode = !!window.__SHARE_KEY__;
+  // const inShareMode = !!window.__SHARE_KEY__;
   const { i18n } = useTranslation();
   const [dev, setDev] = useState(false)
   return (
