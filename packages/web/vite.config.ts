@@ -17,7 +17,7 @@ export default defineConfig({
       bundler: 'vite',
     }),
   ],
-  base: '/fake-world/',
+  base: '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

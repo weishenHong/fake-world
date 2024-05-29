@@ -26,7 +26,7 @@ const App = () => {
           </AntdApp>
         )}
         <div
-          className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none"
+          className="flex  justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none"
           id="center"
         >
           <div className="border">
