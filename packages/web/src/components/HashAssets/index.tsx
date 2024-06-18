@@ -22,10 +22,13 @@ const AntdImage = (props: ImageProps) => {
 };
 
 const HashAssets = (props: Props) => {
+  
   const { src, useAntdImageComponent, component: Component = 'img', ...rest } = props;
   useAsyncAssetsCache(isMD5(src));
 
   const usedSrc = isMD5(src) ? ImageDBManager.IMAGES_CACHE.get(src!) || whiteImageUrl : src || whiteImageUrl;
+  console.log(usedSrc);
+  
   if (useAntdImageComponent && Component === 'img') {
     return <AntdImage {...(rest as ImageProps)} src={usedSrc} />;
   }

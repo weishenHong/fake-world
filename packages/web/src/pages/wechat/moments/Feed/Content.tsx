@@ -1,6 +1,8 @@
 /* eslint-disable no-case-declarations */
 import { offset, useClick, useDismiss, useFloating, useInteractions, useTransitionStyles } from '@floating-ui/react';
 import dayjs from 'dayjs';
+import { ImageViewer } from 'antd-mobile';
+import { ImageDBManager } from '@/dataSource';
 import { isEqual } from 'lodash-es';
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -78,7 +80,10 @@ const FeedContent = ({ id, fromDetail }: Props) => {
           return (
             <div className={twJoin('mt-2 grid grid-cols-3 gap-1', fromDetail && 'mr-[25%]')}>
               {content.imagesInfo.map((img, i) => (
-                <div key={i} className="aspect-h-1 aspect-w-1">
+                <div onClick={()=>{
+                  const images = content.imagesInfo.map(i => ImageDBManager.IMAGES_CACHE.get(i))
+                  ImageViewer.Multi.show({ images, defaultIndex: i,maxZoom: 15,   classNames: { body: 'h-80'} })
+                }} key={i} className="aspect-h-1 aspect-w-1">
                   <h.img src={img} className="col-span-1 object-cover object-center" />
                 </div>
               ))}
@@ -86,7 +91,9 @@ const FeedContent = ({ id, fromDetail }: Props) => {
           );
         } else if (length === 1) {
           return (
-            <div className="mt-2 grid grid-cols-5 gap-1">
+            <div onClick={()=>{
+              ImageViewer.Multi.show({ images: [ImageDBManager.IMAGES_CACHE.get(content.imagesInfo[0])],maxZoom: 15, classNames: { body: 'h-80'} })
+            }} className="mt-2 grid grid-cols-5 gap-1">
               <div className="aspect-h-1 aspect-w-1 col-span-3">
                 <h.img src={content.imagesInfo[0]} className="object-cover object-center" />
               </div>

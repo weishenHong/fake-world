@@ -1,6 +1,8 @@
 /* eslint-disable no-case-declarations */
 import { Modal } from 'antd';
 import dayjs from 'dayjs';
+import { ImageViewer } from 'antd-mobile';
+import { ImageDBManager } from '@/dataSource';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { twJoin } from 'tailwind-merge';
 
@@ -40,14 +42,21 @@ const PersonalContent = ({ id }: Props) => {
         const length = content.imagesInfo.length;
         if (length === 1) {
           return (
-            <div className="h-18 w-18">
+            <div onClick={(e)=>{
+              e.stopPropagation()
+              ImageViewer.Multi.show({ images: [ImageDBManager.IMAGES_CACHE.get(content.imagesInfo[0])],maxZoom: 15, classNames: { body: 'h-80'} })
+            }} className="h-18 w-18">
               <h.img src={content.imagesInfo[0]} className="h-18 w-full object-cover object-center" />
             </div>
           );
         }
         if (length === 2) {
           return (
-            <div className="grid h-18 w-18 grid-cols-2 gap-[2px]">
+            <div  onClick={(e)=>{
+              e.stopPropagation()
+              const images = content.imagesInfo.map(i => ImageDBManager.IMAGES_CACHE.get(i))
+              ImageViewer.Multi.show({ images, maxZoom: 15,   classNames: { body: 'h-80'} })
+            }} className="grid h-18 w-18 grid-cols-2 gap-[2px]">
               <h.img src={content.imagesInfo[0]} className="h-18 object-cover object-center" />
               <h.img src={content.imagesInfo[1]} className="h-18 object-cover object-center" />
             </div>
@@ -55,7 +64,11 @@ const PersonalContent = ({ id }: Props) => {
         }
         if (length === 3) {
           return (
-            <div className="grid h-18 w-18 grid-cols-2 gap-[2px]">
+            <div  onClick={(e)=>{
+              e.stopPropagation()
+              const images = content.imagesInfo.map(i => ImageDBManager.IMAGES_CACHE.get(i))
+              ImageViewer.Multi.show({ images, maxZoom: 15,   classNames: { body: 'h-80'} })
+            }} className="grid h-18 w-18 grid-cols-2 gap-[2px]">
               <h.img src={content.imagesInfo[0]} className="h-18 object-cover object-center" />
               <div className="grid h-18 grid-rows-2 gap-[2px]">
                 <h.img src={content.imagesInfo[1]} className="h-full w-full object-cover object-center" />
@@ -66,7 +79,11 @@ const PersonalContent = ({ id }: Props) => {
         }
         if (length >= 4) {
           return (
-            <div className="grid h-18 w-18 grid-cols-2 gap-[2px]">
+            <div  onClick={(e)=>{
+              e.stopPropagation()
+              const images = content.imagesInfo.map(i => ImageDBManager.IMAGES_CACHE.get(i))
+              ImageViewer.Multi.show({ images, maxZoom: 15,   classNames: { body: 'h-80'} })
+            }} className="grid h-18 w-18 grid-cols-2 gap-[2px]">
               {content.imagesInfo.slice(0, 4).map((v, i) => (
                 <div key={i} className="aspect-h-1 aspect-w-1">
                   <h.img src={v} className="h-full object-cover object-center" />
