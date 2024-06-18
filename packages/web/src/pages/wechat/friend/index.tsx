@@ -15,6 +15,7 @@ import VideoCallOutlinedSVG from '@/assets/video-call-outlined.svg?react';
 import WechatSVG from '@/assets/wechat.svg?react';
 import { h } from '@/components/HashAssets';
 import { canBeDetected } from '@/components/NodeDetected';
+import { userFeedsState, feedState } from '@/state/moments';
 import useModeNavigate from '@/components/useModeNavigate';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { MetaDataType } from '@/state/detectedNode';
@@ -33,6 +34,9 @@ const Friend = () => {
   const setDialogueListState = useSetRecoilState(dialogueListState);
   const { avatarInfo, gender, nickname, wechat, hideGender, remark, area, phone, tags, privacy, thumbnailInfo, hideThumbnail, description } =
     useRecoilValue(friendState(userId ?? ''));
+  const userFeeds = useRecoilValue(userFeedsState(userId ?? ''));
+  const contents = userFeeds.map(i => useRecoilValue(feedState(i.id)).content )
+  console.log(contents)
   const navigate = useModeNavigate();
   const { t } = useTranslation();
 
@@ -149,13 +153,23 @@ const Friend = () => {
         )}
         <div className="mb-12">
           <div className="mt-2 cursor-pointer bg-white">
-            {!hideThumbnail && (
+            { (
               <div className="ml-5 flex items-center border-b border-black/5 py-3" onClick={() => navigate(`/wechat/moments/user/${userId}`)}>
                 <div className="w-20">{t('wechatPage.friend.moments')}</div>
                 <div className="flex flex-1 items-center pr-3">
                   <div className="mr-5 grid flex-1 grid-cols-5 gap-1">
-                    {thumbnailInfo.length === 0 && <div className="aspect-h-1 aspect-w-1"></div>}
-                    {thumbnailInfo.map((v, i) => (
+                    {/* {thumbnailInfo.length === 0 && <div className="aspect-h-1 aspect-w-1"></div>} */}
+                    {contents[0].imagesInfo.map((v, i) => (
+                      <div key={i} className="aspect-h-1 aspect-w-1">
+                        <h.img src={v} className="rounded-sm object-cover object-center" />
+                      </div>
+                    ))}
+                    {contents[1] && contents[1].imagesInfo.map((v, i) => (
+                      <div key={i} className="aspect-h-1 aspect-w-1">
+                        <h.img src={v} className="rounded-sm object-cover object-center" />
+                      </div>
+                    ))}
+                    {contents[2] && contents[2].imagesInfo.map((v, i) => (
                       <div key={i} className="aspect-h-1 aspect-w-1">
                         <h.img src={v} className="rounded-sm object-cover object-center" />
                       </div>
